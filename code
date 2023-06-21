@@ -1,0 +1,206 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// digiindicator.ir
+
+//@version=5
+indicator(title="Candlestick DigiIndicator", shorttitle="CSDI", overlay=true)
+tol = (high-low)/4 
+tol2 = (high-low)/2 
+x = high-(3*tol) 
+ch = low+(3*tol) 
+[_, _, histo] = ta.macd(close, 12, 26, 9)
+patternLabelPosLow = low - (ta.atr(30) * 0.6)
+patternLabelPosHigh = high + (ta.atr(30) * 0.6)
+//====================//
+tol8 = (high-low)/3
+x8 = high-(3*tol8)
+xx8 = high[1]-(2*tol8[1])
+d8 = close[1]<=xx8 and open[1]<=xx8
+if d8 and close<low[1] 
+    label.new(bar_index,patternLabelPosHigh,size=size.tiny,text="sell",color=color.red,style=label.style_label_down)
+barcolor(d8 and close<low[1] ? color.black : na)
+xx = high[1]-(3*tol[1])
+xx2 = low[1]+(3*tol[1])
+d = close[1]<=xx and open[1]<=xx 
+d2 = close[1]>=xx2 and open[1]>=xx2
+if d and close<low[1] 
+    label.new(bar_index,patternLabelPosHigh,text="sell",size=size.tiny,color=color.red,style=label.style_label_down)
+barcolor(d and close<low[1] ? color.black : na)
+if d and close>high[1] 
+    label.new(bar_index,patternLabelPosLow,text="buy",size=size.tiny,color=color.green,style=label.style_label_up)
+barcolor(d and close>high[1] ? color.white : na)
+if d2 and close<low[1]  
+    label.new(bar_index,patternLabelPosHigh,text="sell",size=size.tiny,color=color.red,style=label.style_label_down) 
+barcolor(d2 and close<low[1] ? color.black : na)
+if d2 and close>high[1]  
+    label.new(bar_index,patternLabelPosLow,text="buy",size=size.tiny,color=color.green,style=label.style_label_up)
+barcolor(d2 and close>high[1] ? color.white : na)
+//==============//=================//=========//
+q = low[1]==close[1] //کاربر گرامی این کد به صورت رایگان پخش شده است. دیجی اندیکاتور
+q2 = low[1]==open[1]
+if close[1]<=high[1]-tol2[1] and open[1]<=high[1]-tol2[1] and close<low[1] and q
+    label.new(bar_index,patternLabelPosHigh,text="sell",size=size.tiny,color=color.red,style=label.style_label_down)
+barcolor(close[1]<=high[1]-tol2[1] and open[1]<=high[1]-tol2[1] and close<low[1] and q ? color.black : na)
+if close[1]<=high[1]-tol2[1] and open[1]<=high[1]-tol2[1] and close<low[1] and q2
+    label.new(bar_index,patternLabelPosHigh,text="sell",size=size.tiny,color=color.red,style=label.style_label_down)
+barcolor(close[1]<=high[1]-tol2[1] and open[1]<=high[1]-tol2[1] and close<low[1] and q2 ? color.black : na)
+if close[1]<=high[1]-tol2[1] and open[1]<=high[1]-tol2[1] and close>high[1] and q
+    label.new(bar_index,patternLabelPosLow,text="buy",size=size.tiny,color=color.green,style=label.style_label_up)
+barcolor(close[1]<=high[1]-tol2[1] and open[1]<=high[1]-tol2[1] and close>high[1] and q ? color.white : na)
+if close[1]<=high[1]-tol2[1] and open[1]<=high[1]-tol2[1] and close>high[1] and q2
+    label.new(bar_index,patternLabelPosLow,text="buy",size=size.tiny,color=color.green,style=label.style_label_up)
+barcolor(close[1]<=high[1]-tol2[1] and open[1]<=high[1]-tol2[1] and close>high[1] and q2 ? color.white : na) // © digiindicator.ir
+//==============//=================//=========//
+g = close[4]<open[4] and close[3]>open[3] and close[2]>open[2] and close[1]>open[1]
+gg = (high[4]-low[4])/2
+ggg = high[3]-low[3]
+gggg = high[2]-low[2]
+ggggg = high[1]-low[1] // © digiindicator.ir
+zzz = close<low[1]
+n = (close[1]-low[3])>=gg
+if g==true and ggg<=gg and gggg<=gg and ggggg<=gg and zzz==true and n==true
+    label.new(bar_index,patternLabelPosHigh,text="sell",size=size.tiny,color=color.red,style=label.style_label_down)
+barcolor(g==true and ggg<=gg and gggg<=gg and ggggg<=gg and zzz==true and n==true ? color.black : na)
+//==============//=================//=========//
+m = close[4]>open[4]
+m2 = (high[4]-low[4])/2 // © digiindicator.ir
+m3 = open[3]>close[3]
+m4 = open[2]>close[2]
+m5 = open[1]>close[1] //کاربر گرامی این کد به صورت رایگان پخش شده است. دیجی اندیکاتور
+m6 = (high[3]-low[3])<=m2
+m7 = (high[2]-low[2])<=m2
+m8 = (high[1]-low[1])<=m2
+m9 = close[1]-high[3]>=m2
+m10 = close>open
+m11 = close>open[1]
+if m and m3 and m4 and m5 and m6 and m7 and m8 and m9 and m10 and m11
+    label.new(bar_index,patternLabelPosLow,text="buy",size=size.tiny,color=color.green,style=label.style_label_up)
+barcolor(m and m3 and m4 and m5 and m6 and m7 and m8 and m9 and m10 and m11 ? color.white : na)
+//==============//=================//=========//
+z = close[2]>open[2]
+z1 = (high[2]-low[2])/3
+z2 = close[2]>=(low[2]+(2*z1))
+z22 = open[2]<=(high[2]-(2*z1))
+DojiSize = (high[1]-low[1])/8 // © digiindicator.ir
+data1 = close[1]>=(low[1]+(3*DojiSize))
+data2 = close[1]<=(high[1]-(3*DojiSize))
+data3 = open[1]>=(low[1]+(3*DojiSize)) //کاربر گرامی این کد به صورت رایگان پخش شده است. دیجی اندیکاتور
+data4 = open[1]<=(high[1]-(3*DojiSize))
+z3 =open[1]<=close[1]
+z4 = open>close
+z5 = (high-low)/2
+z6 = close<=(high-z5)
+z7 = close<low[1]
+if z and z2 and data1 and data2 and data3 and data4 and z3 and z4 and z6 and z7 and z22
+    label.new(bar_index,patternLabelPosHigh,text="sell",size=size.tiny,color=color.red,style=label.style_label_down)
+barcolor(z and z2 and data1 and data2 and data3 and data4 and z3 and z4 and z6 and z7 and z22 ? color.black : na) // © digiindicator.ir
+//==============//=================//=========//
+w = close[2]<open[2]
+w1 = (high[2]-low[2])/3
+w2 = close[2]<=(high[2]-(2*w1))
+w22 = open[2]>=(high[2]-(2*w1))
+DojiSizew = (high[1]-low[1])/8
+data1w = close[1]>=(low[1]+(3*DojiSizew)) //کاربر گرامی این کد به صورت رایگان پخش شده است. دیجی اندیکاتور
+data2w = close[1]<=(high[1]-(3*DojiSizew))
+data3w = open[1]>=(low[1]+(3*DojiSizew))
+data4w = open[1]<=(high[1]-(3*DojiSizew))
+w3 =open[1]>=close[1]
+w4 = open<close
+w5 = (high-low)/2
+w6 = close>=(high-w5) // © digiindicator.ir
+w7 = close>high[1]
+if w and w2 and data1w and data2w and data3w and data4w and w3 and w4 and w6 and w7 and w22
+    label.new(bar_index,patternLabelPosLow,text="buy",size=size.tiny,color=color.green,style=label.style_label_up)
+barcolor(w and w2 and data1w and data2w and data3w and data4w and w3 and w4 and w6 and w7 and w22 ? color.white : na)
+//==============//=================//=========//
+e = close[1]>open[1]
+e1 = (high[1]-low[1])/2
+e2 = (high[1]-low[1])/4
+e22 = (high[1]-low[1])/5
+e3 = open[1]<(low[1]+e1) //کاربر گرامی این کد به صورت رایگان پخش شده است. دیجی اندیکاتور
+e4 = close[1]>(low[1]+(3*e2))
+e5 = close<open
+e6 = close<=low[1]
+e7 = open[1]>(low[1]+e22)
+if e and e1 and e2 and e3 and e4 and e5 and e6 and e7
+    label.new(bar_index,patternLabelPosHigh,text="sell",size=size.tiny,color=color.red,style=label.style_label_down)
+barcolor(e and e1 and e2 and e3 and e4 and e5 and e6 and e7 ? color.black : na) // © digiindicator.ir
+//==============//=================//=========//
+r = close[1]<open[1]
+r1 = (high[1]-low[1])/2
+r2 = (high[1]-low[1])/4
+r22 = (high[1]-low[1])/5
+r3 = open[1]>(low[1]+r1)
+r4 = close[1]<(high[1]-(3*r2)) // © digiindicator.ir
+r5 = close>open
+r6 = close>=high[1] //کاربر گرامی این کد به صورت رایگان پخش شده است. دیجی اندیکاتور
+r7 = open[1]<(high[1]-r22)
+if r and r1 and r2 and r3 and r4 and r5 and r6 and r7
+    label.new(bar_index,patternLabelPosLow,text="buy",size=size.tiny,color=color.green,style=label.style_label_up) // © digiindicator.ir
+barcolor(r and r1 and r2 and r3 and r4 and r5 and r6 and r7 ? color.white : na)
+//==============//=================//=========//
+if close[1]<open[1] and close>open and close>open[1]
+    label.new(bar_index,patternLabelPosLow,text="En B",size=size.tiny,color=color.rgb(172, 201, 172),style=label.style_label_up)
+if close[1]>open[1] and close<open and close<open[1]// © digiindicator.ir
+    label.new(bar_index,patternLabelPosHigh,text="En S",size=size.tiny,color=color.rgb(185, 142, 142),style=label.style_label_down) // © digiindicator.ir
+//==============//=================//=========//
+if close[1]<open[1] and close[1]>open and close>open
+    label.new(bar_index,patternLabelPosLow,text="buy",size=size.tiny,color=color.green,style=label.style_label_up)
+if close[1]>open[1] and close[1]<open and close<open// © digiindicator.ir
+    label.new(bar_index,patternLabelPosHigh,text="sell",size=size.tiny,color=color.red,style=label.style_label_down)
+//==============//=================//=========//
+length = 0.5
+body = math.abs(close - open)// © digiindicator.ir
+candleColor = close > open ? color.green : color.red
+if open[3]>=close[3] and open[2]>close[2] and open[1]>close[1] and open>close and body[2] > length * (high[2] - low[2]) and body[1] > length * (high[1] - low[1]) and body > length * (high - low)
+    label.new(bar_index,patternLabelPosHigh,text="sell",size=size.tiny,color=color.rgb(74, 58, 58),style=label.style_label_down)
+if open[3]<=close[3] and open[2]<close[2] and open[1]<close[1] and open<close and body[2] > length * (high[2] - low[2]) and body[1] > length * (high[1] - low[1]) and body > length * (high - low)
+    label.new(bar_index,patternLabelPosLow,text="buy",size=size.tiny,color=color.rgb(147, 147, 147),style=label.style_label_up)// © digiindicator.ir
+//==============//=================//=========//
+//کاربر گرامی این کد به صورت رایگان پخش شده است. دیجی اندیکاتور
+//alert
+if d and close>high[1]
+    alert("btcusdt buy/long"+"    entry: "+str.tostring(close))
+if d2 and close>high[1]
+    alert("btcusdt buy/long"+"    entry: "+str.tostring(close)) // © digiindicator.ir
+if m and m3 and m4 and m5 and m6 and m7 and m8 and m9 and m10 and m11
+    alert("btcusdt buy/long"+"    entry: "+str.tostring(close))
+if w and w2 and data1w and data2w and data3w and data4w and w3 and w4 and w6 and w7 and w22
+    alert("btcusdt buy/long"+"    entry: "+str.tostring(close))
+if r and r1 and r2 and r3 and r4 and r5 and r6 and r7
+    alert("btcusdt buy/long"+"    entry: "+str.tostring(close))
+if close[1]<=high[1]-tol2[1] and open[1]<=high[1]-tol2[1] and close>high[1] and q
+    alert("btcusdt buy/long"+"    entry: "+str.tostring(close))
+if close[1]<=high[1]-tol2[1] and open[1]<=high[1]-tol2[1] and close>high[1] and q2
+    alert("btcusdt buy/long"+"    entry: "+str.tostring(close))
+if e and e1 and e2 and e3 and e4 and e5 and e6 and e7
+    alert("btcusdt sell/short"+"    entry: "+str.tostring(close))
+if z and z2 and data1 and data2 and data3 and data4 and z3 and z4 and z6 and z7 and z22
+    alert("btcusdt sell/short"+"    entry: "+str.tostring(close))
+if g==true and ggg<=gg and gggg<=gg and ggggg<=gg and zzz==true and n==true
+    alert("btcusdt sell/short"+"    entry: "+str.tostring(close))
+if close[1]<=high[1]-tol2[1] and open[1]<=high[1]-tol2[1] and close<low[1] and q2 // © digiindicator.ir
+    alert("btcusdt sell/short"+"    entry: "+str.tostring(close))
+if close[1]<=high[1]-tol2[1] and open[1]<=high[1]-tol2[1] and close<low[1] and q //کاربر گرامی این کد به صورت رایگان پخش شده است. دیجی اندیکاتور
+    alert("btcusdt sell/short"+"    entry: "+str.tostring(close))
+if d2 and close<low[1]
+    alert("btcusdt sell/short"+"    entry: "+str.tostring(close))
+if d and close<low[1]
+    alert("btcusdt sell/short"+"    entry: "+str.tostring(close))
+if close[1]<open[1] and close>open and close>open[1]
+    alert("EN B"+"    price: "+str.tostring(close))
+if close[1]>open[1] and close<open and close<open[1]
+    alert("EN S"+"    price: "+str.tostring(close)) // © digiindicator.ir
+//کاربر گرامی این کد به صورت رایگان پخش شده است. دیجی اندیکاتور
+if close[1]<open[1] and close[1]>open and close>open
+    alert("btcusdt buy/long"+"    entry: "+str.tostring(close))
+if close[1]>open[1] and close[1]<open and close<open
+    alert("btcusdt sell/short"+"    entry: "+str.tostring(close))
+if open[3]<=close[3] and open[2]<close[2] and open[1]<close[1] and open<close and body[2] > length * (high[2] - low[2]) and body[1] > length * (high[1] - low[1]) and body > length * (high - low)
+    alert("btcusdt buy/long"+"    entry: "+str.tostring(close))
+if open[3]>=close[3] and open[2]>close[2] and open[1]>close[1] and open>close and body[2] > length * (high[2] - low[2]) and body[1] > length * (high[1] - low[1]) and body > length * (high - low)
+    alert("btcusdt sell/short"+"    entry: "+str.tostring(close))
+// © digiindicator.ir
+var table myTable = na
+if bar_index == 0
+    myTable := table.new(position=position.top_right, columns=2, rows=3)
+    table.cell(myTable, 0, 0, "digiindicator.ir")
